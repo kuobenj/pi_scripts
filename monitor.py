@@ -1,6 +1,7 @@
 import sys
 import time
 import psutil
+from subprocess import call
 
 last_idle = last_total = 0
 

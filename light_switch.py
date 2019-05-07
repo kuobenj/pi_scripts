@@ -1,5 +1,6 @@
 import RPi.GPIO
 import os
+import time
 
 #can put this in /etc/rc.local
 
@@ -28,5 +29,6 @@ try:
             else:
                 print 'Lights Off'
                 os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_off/with/key/b1SgHiGpXqazCsnAuVwLi')
+        time.sleep(1)
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     RPi.GPIO.cleanup() # cleanup all RPi.GPIO

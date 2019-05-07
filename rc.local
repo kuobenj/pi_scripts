@@ -24,5 +24,7 @@ python /home/pi/pi_scripts/ip_update.py &
 python /home/pi/pi_scripts/push_camera_feed.py &
 # system monitor webpage
 python /home/pi/pi_scripts/monitor.py &
+# buttons script
+python /home/pi/pi_scripts/light_switch.py &
 
 exit 0

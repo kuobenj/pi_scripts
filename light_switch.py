@@ -24,11 +24,11 @@ try:
         else:
             switch_state = read_val
             if switch_state:
-                print 'Lights On'
-                os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_on/with/key/b1SgHiGpXqazCsnAuVwLi')
-            else:
-                print 'Lights Off'
+                print '\nLights Off\n'
                 os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_off/with/key/b1SgHiGpXqazCsnAuVwLi')
+            else:
+                print '\nLights On\n'
+                os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_on/with/key/b1SgHiGpXqazCsnAuVwLi')
         time.sleep(1)
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     RPi.GPIO.cleanup() # cleanup all RPi.GPIO

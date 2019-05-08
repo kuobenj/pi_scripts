@@ -20,8 +20,8 @@ fi
 
 # ip autolog
 python /home/pi/pi_scripts/ip_update.py &
-# photo update
-python /home/pi/pi_scripts/push_camera_feed.py &
+# # photo update
+# python /home/pi/pi_scripts/push_camera_feed.py &
 # system monitor webpage
 python /home/pi/pi_scripts/monitor.py &
 # buttons script

@@ -6,13 +6,12 @@ Currently the peripheral hardware is as follows
 
 - Wifi dongle
 - 1 SPST Wired up
-- 1 SPDT Unconnected
+- 1 SPDT Wired up
+- 1 Custom LED Strip
 
 In the future I want to maybe add the following
 
-- Wiring up the SPDT switch
-- 4 Regular LEDs
-- 1 Connection to a custom peripheral board for an LED Strip
+- 4 Regular LEDs? Maybe there might be current issues.
 
 ## Scripts
 
@@ -24,19 +23,20 @@ This script simply grabs the local IP and the public IP and throws it into a goo
 
 The intention initially was to be able to SSH into this device from whereever. If I set up the port forwarding properly, but I don't think I've really taken advantage of that for some time.
 
-### `monitor.py`
+### ~~`monitor.py`~~
 
-This is a really hacky script to post the system performance into a webpage I could access simply. Back when the deprecated camera stuff was in place I wanted to see what rates would affect the system to the point it'd fall over. Still kind of a neat page, and I could add stuff in the future to monitor other aspects of the system?
+~~This is a really hacky script to post the system performance into a webpage I could access simply. Back when the deprecated camera stuff was in place I wanted to see what rates would affect the system to the point it'd fall over. Still kind of a neat page, and I could add stuff in the future to monitor other aspects of the system?~~
+
+I've removed this from the rc.local file.
 
 ### `light_switch.py`
 
-This is the meat of the system. Currently all it is looking for is the switch position and will send an IFTTT signal to turn on or off my light in my room.
+This is the meat of the system. Currently it is looking for is the switch position and will send a curl requet to turn on or off my light in my room.
 
-I want to extend the functionality of this switch with additional peripherals mentioned above.
+The second switch holds the current RGB light values, and the other position to indicate to cycle through my preprogrammed colors.
 
-The second switch I would like for one position to indicate to hold the current RGB light values, and the other position to indicate to cycle through my preprogrammed colors.
-
-Finally I'd like to add 4 LED's which I would use to indicate the last byte of my local IP address, so this way I wouldn't even need the up_ipdate script above.
+~~Finally I'd like to add 4 LED's which I would use to indicate the last byte of my local IP address, so this way I wouldn't even need the up_ipdate script above.~~
+I think actually the ammount of current draw may be too high for this functionality. It seems like each GPIO pin on a Pi can draw 16mA, but a regular red LED draws about 0.20mA, I think though there are some tutorials where one can further limit the current by using a larger resistor so this may be an option in the future.
 
 ## `rc.local`
 

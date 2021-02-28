@@ -9,18 +9,18 @@ while True:
     f = open('system_stats.txt','w')
 
     mem_usage = psutil.virtual_memory().percent
-    print 'mem_usage'
-    print mem_usage
+    print('mem_usage')
+    print(mem_usage)
     # import IPython
     # IPython.embed()    
 
     swap_usage = psutil.swap_memory().percent
-    print 'swap_usage'
-    print swap_usage
+    print('swap_usage')
+    print(swap_usage)
 
     cpu_usage = psutil.cpu_percent()
-    print 'cpu_usage'
-    print cpu_usage
+    print('cpu_usage')
+    print(cpu_usage)
 
     # import IPython
     # IPython.embed()

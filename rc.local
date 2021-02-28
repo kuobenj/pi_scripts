@@ -23,8 +23,9 @@ python /home/pi/pi_scripts/ip_update.py &
 # # photo update
 # python /home/pi/pi_scripts/push_camera_feed.py &
 # system monitor webpage
-python /home/pi/pi_scripts/monitor.py &
+# python3 /home/pi/pi_scripts/monitor.py &
 # buttons script
-python /home/pi/pi_scripts/light_switch.py &
+sleep 30 # hack to wait for IP stack to come up?
+python3 /home/pi/pi_scripts/light_switch.py &
 
 exit 0

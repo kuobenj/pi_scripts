@@ -164,12 +164,14 @@ if __name__ == '__main__':
                     # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_off/with/key/b1SgHiGpXqazCsnAuVwLi')
                     # https://github.com/tigoe/WeMoExamples
                     os.system('curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.4:49153/upnp/control/basicevent1\'')
+                    write_color(LED_OFF)
                 else:
                     print('\nLights On\n')
                     # old IFTTT trigger, since IFTTT limited stuff I looked into other methods to communicate with Belkin stuff directly
                     # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_on/with/key/b1SgHiGpXqazCsnAuVwLi')
                     # https://github.com/tigoe/WeMoExamples
                     os.system('curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.4:49153/upnp/control/basicevent1\'')
+                    write_color(LED_WHITE)
             switch2_state = RPi.GPIO.input(switchPin2)
             if switch2_state:
                 pass

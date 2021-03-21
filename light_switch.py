@@ -86,6 +86,14 @@ class MyServer(BaseHTTPRequestHandler):
             <html>
             <body>
             <h1>Thanks For Your Request</h1>
+            <button style="width: 24%; height: 50%; background-color: black; color: white;" onclick="document.location='/off'">OFF</button>
+            <button style="width: 24%; height: 50%;"  onclick="document.location='/on'">ON</button>
+            <button style="width: 24%; height: 50%; background-color: red;" onclick="document.location='/red'">RED</button>
+            <button style="width: 24%; height: 50%; background-color: green;" onclick="document.location='/green'">GREEN</button>
+            <button style="width: 24%; height: 50%; background-color: blue;" onclick="document.location='/blue'">BLUE</button>
+            <button style="width: 24%; height: 50%; background-color: magenta;" onclick="document.location='/magenta'">MAGENTA</button>
+            <button style="width: 24%; height: 50%; background-color: cyan;" onclick="document.location='/cyan'">CYAN</button>
+            <button style="width: 24%; height: 50%; background-color: yellow;" onclick="document.location='/yellow'">YELLOW</button>
             </body>
             </html>
         '''

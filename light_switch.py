@@ -65,6 +65,32 @@ def write_color(color):
         RPi.GPIO.output(LEDPin2, False)
         RPi.GPIO.output(LEDPin3, False)
 
+# On = True, Off = False
+def wemo_cmd(cmd):
+    start_port = 49152
+    max_port = 49999
+    if cmd:
+        print('\nLights Off\n')
+        # old IFTTT trigger, since IFTTT limited stuff I looked into other methods to communicate with Belkin stuff directly
+        # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_off/with/key/b1SgHiGpXqazCsnAuVwLi')
+        for port in range(start_port, max_port+1):
+            # https://github.com/tigoe/WeMoExamples
+            cmd_string = 'curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.9:%s/upnp/control/basicevent1\'' % port
+            ret_val = os.system(cmd_string)
+            if ret_val == 0:
+                break
+        write_color(LED_WHITE)
+    else:
+        print('\nLights On\n')
+        # old IFTTT trigger, since IFTTT limited stuff I looked into other methods to communicate with Belkin stuff directly
+        # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_on/with/key/b1SgHiGpXqazCsnAuVwLi')
+        for port in range(start_port, max_port+1):
+            # https://github.com/tigoe/WeMoExamples
+            cmd_string = 'curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.9:%s/upnp/control/basicevent1\'' % port
+            ret_val = os.system(cmd_string)
+            if ret_val == 0:
+                break
+        write_color(LED_OFF)
 
 
 # Class adapted from here: https://www.e-tinkers.com/2018/04/how-to-control-raspberry-pi-gpio-via-http-web-server/
@@ -106,13 +132,11 @@ class MyServer(BaseHTTPRequestHandler):
         elif self.path=='/on':
             status='LED is On'
             write_color(LED_WHITE);
-            # https://github.com/tigoe/WeMoExamples
-            os.system('curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.4:49153/upnp/control/basicevent1\'')
+            wemo_cmd(True)
         elif self.path=='/off':
             status='LED is Off'
             write_color(LED_OFF);
-            # https://github.com/tigoe/WeMoExamples
-            os.system('curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.4:49153/upnp/control/basicevent1\'')
+            wemo_cmd(False)
         elif self.path=='/black' or self.path=='/0':
             write_color(LED_OFF);
         elif self.path=='/white' or self.path=='/1':
@@ -166,20 +190,7 @@ if __name__ == '__main__':
                 pass
             else:
                 switch1_state = read_val1
-                if switch1_state:
-                    print('\nLights Off\n')
-                    # old IFTTT trigger, since IFTTT limited stuff I looked into other methods to communicate with Belkin stuff directly
-                    # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_off/with/key/b1SgHiGpXqazCsnAuVwLi')
-                    # https://github.com/tigoe/WeMoExamples
-                    os.system('curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.4:49153/upnp/control/basicevent1\'')
-                    write_color(LED_OFF)
-                else:
-                    print('\nLights On\n')
-                    # old IFTTT trigger, since IFTTT limited stuff I looked into other methods to communicate with Belkin stuff directly
-                    # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_on/with/key/b1SgHiGpXqazCsnAuVwLi')
-                    # https://github.com/tigoe/WeMoExamples
-                    os.system('curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.4:49153/upnp/control/basicevent1\'')
-                    write_color(LED_WHITE)
+                wemo_cmd(switch1_state)
             switch2_state = RPi.GPIO.input(switchPin2)
             if switch2_state:
                 pass

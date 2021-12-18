@@ -1,0 +1,1 @@
+scp -r ./* pi@${MY_PI_IP}:/home/pi/pi_scripts

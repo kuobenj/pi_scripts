@@ -75,7 +75,7 @@ def wemo_cmd(cmd):
         # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_off/with/key/b1SgHiGpXqazCsnAuVwLi')
         for port in range(start_port, max_port+1):
             # https://github.com/tigoe/WeMoExamples
-            cmd_string = 'curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.9:%s/upnp/control/basicevent1\'' % port
+            cmd_string = 'curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>1</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.12:%s/upnp/control/basicevent1\'' % port
             ret_val = os.system(cmd_string)
             if ret_val == 0:
                 break
@@ -86,7 +86,7 @@ def wemo_cmd(cmd):
         # os.system('curl -X POST https://maker.ifttt.com/trigger/bed_lamp_on/with/key/b1SgHiGpXqazCsnAuVwLi')
         for port in range(start_port, max_port+1):
             # https://github.com/tigoe/WeMoExamples
-            cmd_string = 'curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.9:%s/upnp/control/basicevent1\'' % port
+            cmd_string = 'curl -H \'Content-type:text/xml;  charset=utf-8\' -H \'SOAPACTION:"urn:Belkin:service:basicevent:1#SetBinaryState"\' -d \'<?xml version="1.0" encoding="utf-8"?> <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"> <s:Body><u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1"> <BinaryState>0</BinaryState></u:SetBinaryState></s:Body></s:Envelope>\' \'http://192.168.1.12:%s/upnp/control/basicevent1\'' % port
             ret_val = os.system(cmd_string)
             if ret_val == 0:
                 break

@@ -19,7 +19,7 @@ if [ "$_IP" ]; then
 fi
 
 # ip autolog
-python /home/pi/pi_scripts/ip_update.py &
+export PYTHONHTTPSVERIFY=0; python /home/pi/pi_scripts/ip_update.py &
 # # photo update
 # python /home/pi/pi_scripts/push_camera_feed.py &
 # system monitor webpage
